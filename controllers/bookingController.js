@@ -2,11 +2,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const Hotel = require('../model/hotelModel');
 const catchAsync = require('../utils/catchError');
-const AppError = require('../utils/AppError');
 
 exports.checkout = catchAsync(async (req, res, next) => {
   const hotel = await Hotel.findById(req.params.id);
-  console.log(hotel)
+  console.log(hotel);
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],

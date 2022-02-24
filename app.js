@@ -9,6 +9,7 @@ const AppError = require('./utils/AppError');
 
 // Set security HTTP headers using helmet package
 
+
 app.use(express.json({ limit: '10kb' }));
 
 if (process.env.NODE_ENV === 'development') {
