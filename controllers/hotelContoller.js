@@ -1,6 +1,10 @@
 const Hotel = require('../model/hotelModel');
 const catchAsync = require('../utils/catchError');
 const AppError = require('../utils/AppError');
+const upload = require('../utils/multer');
+const cloudinary = require('../utils/cloud');
+
+exports.uploadProductImages = upload.single('image');
 
 exports.allHotels = catchAsync(async (req, res, next) => {
   const hotels = await Hotel.find();
@@ -15,9 +19,18 @@ exports.allHotels = catchAsync(async (req, res, next) => {
 });
 
 exports.createHotel = catchAsync(async (req, res, next) => {
+  const uploader = async (path) => await cloudinary.uploads(path, 'Hotels');
+  if (!req.file) {
+    return next(new AppError('You must upload an image'));
+  }
+
+  const path = req.file.path;
+
+  const result = await uploader(path);
+  req.body.image = result.url;
   const newHotel = await Hotel.create(req.body);
 
-  newProduct.__v = undefined;
+  newHotel.__v = undefined;
   res.status(200).json({
     status: 'Created',
     data: {

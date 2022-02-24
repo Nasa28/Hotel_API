@@ -30,6 +30,16 @@ const bookingSchema = new mongoose.Schema(
       trim: true,
     },
 
+    paid: {
+      type: Boolean,
+      default: true,
+    },
+
+    price: {
+      type: Number,
+      require: [true, 'Booking must have a price.'],
+    },
+
     hotel: [
       {
         type: mongoose.Schema.ObjectId,

@@ -8,10 +8,13 @@ const hotelSchema = new mongoose.Schema({
     required: [true, 'A Hotel must have a name'],
     trim: true,
     unique: [true, 'Hotel with this name already exist'],
-    maxlength: [30, 'Hotel name must not be more than 30 characters'],
-    minlength: [5, 'Hotel name must be more than 10 characters'],
   },
 
+  address: {
+    type: String,
+    trim: true,
+    required: [true, 'Hotel must have a address'],
+  },
   price: {
     type: Number,
     required: [true, 'A Hotel must have a price'],
@@ -33,7 +36,7 @@ const hotelSchema = new mongoose.Schema({
 });
 
 hotelSchema.pre('save', function (next) {
-  this.slug = slugify(this.title, { lower: true });
+  this.slug = slugify(this.name, { lower: true });
   next();
 });
 const Hotel = mongoose.model('Hotel', hotelSchema);
