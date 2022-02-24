@@ -29,6 +29,13 @@ const bookingSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+
+    hotel: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Hotel',
+      },
+    ],
   },
   { timestamps: true },
 );
