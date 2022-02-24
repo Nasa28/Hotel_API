@@ -32,7 +32,7 @@ const hotelSchema = new mongoose.Schema({
   },
 });
 
-productSchema.pre('save', function (next) {
+hotelSchema.pre('save', function (next) {
   this.slug = slugify(this.title, { lower: true });
   next();
 });
