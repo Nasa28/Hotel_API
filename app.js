@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const morgan = require('morgan');
 const hotelRoutes = require('./routes/hotelRoutes');
@@ -12,7 +13,7 @@ app.use(express.json({ limit: '10kb' }));
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-
+app.use(cors());
 app.use('/api/v1/hotels', hotelRoutes);
 
 app.all('*', (req, res, next) => {
