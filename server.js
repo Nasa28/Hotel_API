@@ -6,7 +6,6 @@ const app = require('./app');
 // HANDLE UNCAUGHT EXCEPTIONS
 
 process.on('uncaughtException', (err) => {
-  console.log(err.name, err.message);
   process.exit(1);
 });
 
@@ -26,7 +25,7 @@ mongoose.connect(DB).then(() => {
 const server = http.createServer(app);
 
 server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  // console.log(`Server is running on port ${port}`);
 });
 
 // HANDLE UNHANDELLED REJECTIONS
