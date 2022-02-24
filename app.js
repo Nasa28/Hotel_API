@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const morgan = require('morgan');
 const hotelRoutes = require('./routes/hotelRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 const errorHandler = require('./controllers/errorController');
 const AppError = require('./utils/AppError');
 
@@ -15,6 +16,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(cors());
 app.use('/api/v1/hotels', hotelRoutes);
+
+app.use('/api/v1/booking', bookingRoutes);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find this ${req.originalUrl} on this server`, 400));

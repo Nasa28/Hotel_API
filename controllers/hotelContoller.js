@@ -7,7 +7,7 @@ const cloudinary = require('../utils/cloud');
 exports.uploadProductImages = upload.single('image');
 
 exports.allHotels = catchAsync(async (req, res, next) => {
-  const hotels = await Hotel.find();
+  const hotels = await Hotel.find().select('-__v');
 
   res.status(200).json({
     count: hotels.length,
